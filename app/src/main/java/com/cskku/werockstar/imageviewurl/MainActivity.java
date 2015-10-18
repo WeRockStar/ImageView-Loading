@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -36,9 +37,15 @@ public class MainActivity extends AppCompatActivity {
         btnLoad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new LoadImage().execute(url);
-                picassoLoad();
-                glideLoad();
+                new Handler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        new LoadImage().execute(url);
+                        picassoLoad();
+                        glideLoad();
+                    }
+                });
+
             }
         });
 
